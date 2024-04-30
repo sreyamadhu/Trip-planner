@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="content">
+  <h1>{{district}}</h1>
+  <br>
+  <div class="row">
+    {% for temppackagecode,temppackagedetailslist in temppackagedict.items %}
+      <div class="col-12 col-md-4 col-sm-6">
+    
+        <div class="card">
+          {% for package in temppackagedetailslist %}
+          <img
+            class="card-img-top"
+            src="{{package.10.url}}"
+            alt="Unsplash"
+          />
+          {% endfor %}
+          <!--
+            <div class="card-header">
+            <h5 class="card-title mb-0">{{ temppackagecode }}</h5>
+          </div>
+          -->
+          <div class="card-body">
+            <p class="card-text">
+              SPOTS
+            </p>
+            {% for packagecode,packagedetailslist in mainpackagedict.items %}
+              {% if packagecode == temppackagecode %}
+                {% for package in packagedetailslist %}
+                  <p class="card-text">
+                    {{package.5}}
+                  </p>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+            <div>
+              <form method="post" action="packageview">
+                {% csrf_token %}
+                <input type="hidden" name="package_code" value="{{ temppackagecode }}">
+                <button
+                type="submit"
+                name="itinerary"
+                class="btn btn-primary"
+              >
+                Select Package
+              </button>
+              </form>
+            </div>
+          </div>
+        </div>
+    
+      </div> 
+    {% endfor %}
+  </div>
+  <!--
+    <div>
+    <a href="createpackageview">CREATE YOU PACKAGE</a>
+  </div>
+  -->
+  
+</main>
+
+{% endblock %}
+

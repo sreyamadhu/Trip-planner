@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+{% load static %}
+{% static "img" as baseUrl%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+
+    <link
+      rel="canonical"
+      href="https://demo-basic.adminkit.io/pages-blank.html"
+    />
+
+    <title>Maps</title>
+
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/script.js' %}"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="/packages">
+            <span class="align-middle">TRIP PLANNER</span>
+          </a>
+
+          <ul class="sidebar-nav">
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages">
+                <i class="align-middle" data-feather="home"></i>
+                <span class="align-middle">Home</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/packageview">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Packages</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/itineraryviewagain">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Itinerary</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="/packages/createpackageview">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Create Package</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="https://cdn.iconscout.com/icon/free/png-256/free-user-circle-3609976-3014616.png"
+                    class="avatar img-fluid rounded me-1"
+                    alt="User Name"
+                  />
+                  <span class="text-dark">{{user_profile.username}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="/packages/accountview"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/packages/logoutview">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content">
+          <div>days:{{day}}</div>
+          <br>
+          <div>destination:{{destination}}</div>
+          <br>
+          {% if create_package_selected_list %}
+          <div>create_package_selected_list:{{create_package_selected_list}}</div>
+          {% endif %}
+        
+          <section class="dashboard">
+            <!--  <h2>User Dashboard</h2>   -->
+            <form action="/packages/createpackageview" method="POST">
+              {% csrf_token %}
+            <label for="destination">Starting place : </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+
+              <label for="destination">choose place: </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+              <label for="destination">choose place: </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+              <label for="destination">choose place: </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+              <label for="destination">choose place: </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+              <label for="destination">Ending place: </label><br />
+              <select name="create_package_selected_list" id="create_package_selected_list" required="">
+                {% for selected_place in selected_place_from_destinations %}
+                <option value="{{selected_place.spotname}}">{{selected_place.spotname}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <br>
+              
+              <button type="submit" class="submit">
+                    Create package and itinerary
+              </button>
+             
+            </form>
+          </section>
+          <div>
+            
+          </div>
+          
+        </main>
+
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  <a
+                    class="text-muted"
+                    href="https://adminkit.io/"
+                    target="_blank"
+                    ><strong>Trip planner</strong></a
+                  >
+
+                  &copy;
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

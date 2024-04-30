@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+{% load static %}
+{% static "img" as baseUrl%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <!--{% static 'img/icons/icon-48x48.png' %}{{package.10.url}}-->
+    
+    <title>Packages</title>
+
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/script.js' %}"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="index.html">
+            <span class="align-middle">TRIP PLANNER</span>
+          </a>
+
+          <ul class="sidebar-nav">
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages">
+                <i class="align-middle" data-feather="home"></i>
+                <span class="align-middle">Home</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/packageview">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Packages</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/itineraryviewagain">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Itinerary</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="{% url 'spotdetailsview' spotdetails_spotname %}">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Spot</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="{% static 'img/avatars/avatar.jpg' %}"
+                    class="avatar img-fluid rounded me-1"
+                    alt="Charles Hall"
+                  />
+                  <span class="text-dark">{{user_profile.username}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="/packages/accountview"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/packages/logoutview">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        
+        
+        <div class="container">
+          <div class="row" >
+            <div class="col">
+              <div class="row">
+                <img src="{{spotdetailsdict.img.url}}" height="300px" width="300px">
+              </div>
+              
+              <div class="row" align="center">
+                <form method="post" action="/usercontribution/reviewpage">
+                  {% csrf_token %}
+                  <input type="hidden" name="spotname" value="{{spotdetailsdict.spotname}}">
+                  <button
+                  type="submit"
+                  name="addreview"
+                  class="btn btn-primary"
+                >
+                GIVE REVIEW
+                </button>
+                </form>
+              </div>
+            </div>
+            <div class="col" align="center">
+              <h1>SPOT:{{spotdetailsdict.spotname}}</h1>
+              <br>
+              <h4>DISTRICT:{{spotdetailsdict.spotdistrict}}</h4>
+              <h4>LOCATION:{{spotdetailsdict.location}}</h4>
+              <h4>LANDSCAPE:{{spotdetailsdict.landscape}}</h4>
+              {% if spotdetailsdict.cafespot %}
+              <h4>CAFESPOT:{{spotdetailsdict.cafespot}}</h4>
+              {% else %}
+              <h4>CAFESPOT:Not available</h4>
+              {% endif %}
+              <h4>DESCRIPTION:{{spotdetailsdict.description}}</h4>
+              <h3></h3>
+            </div>
+          </div>
+
+        </div>
+        <br><br><br>
+        
+
+        <br><br><br>
+        
+        <div>
+          <h1>REVIEWS</h1>
+          <br>
+          {% for review,reviewitemslist in spotreviewdetailsdict.items %}
+          <div>
+            <h3>USER:{{reviewitemslist.1}}</h3>
+            <h5>{{reviewitemslist.4}}</h5>
+            <div>
+              {% if reviewitemslist.5 %}
+              <img src="{{ reviewitemslist.5.url }}" height="200px" width="200px">
+              {% endif %}
+              {% if reviewitemslist.6 %}
+              <img src="{{ reviewitemslist.6.url }}" height="200px" width="200px">
+              {% endif %}
+            </div>
+            <br><br>
+          </div>
+            
+          {% endfor %}
+        </div>
+        
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  <a
+                    class="text-muted"
+                    href="https://adminkit.io/"
+                    target="_blank"
+                    ><strong>Trip planner</strong></a
+                  >
+
+                  &copy;
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% load static %} {% static "img" as baseUrl%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+
+    <link
+      rel="canonical"
+      href="https://demo-basic.adminkit.io/pages-blank.html"
+    />
+
+    <title>Maps</title>
+
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/script.js' %}"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <style>
+      .map-container {
+        height: 60vh; /* 80% of the viewport height */
+        width: 75vw; /* 80% of the viewport width */
+        margin: auto; /* Center the map horizontally */
+        border: 2px solid #282c3c; /* Add a border */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="/packages">
+            <span class="align-middle">TRIP PLANNER</span>
+          </a>
+
+          <ul class="sidebar-nav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages">
+                <i class="align-middle" data-feather="home"></i>
+                <span class="align-middle">Home</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/packageview">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Packages</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages/itineraryviewagain">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Itinerary</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="{% url 'mapview' day_key_value %}">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Map</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  {% if user_profile.user_image %}
+                  <img
+                    src="{{user_profile.user_image.url}}"
+                    class="avatar img-fluid rounded me-1"
+                    alt="Not available"
+                  />
+                  {% else %}
+                  <img
+                    src="https://cdn.iconscout.com/icon/free/png-256/free-user-circle-3609976-3014616.png"
+                    class="avatar img-fluid rounded me-1"
+                    alt="Not available"
+                  />
+                  {% endif %}
+                  <span class="text-dark">{{user_profile.username}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="/packages/accountview"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/packages/logoutview"
+                    >Log out</a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content">
+          <div class="card-header">
+            <h1 style="text-align: center">{{day_key_value}}</h1>
+          </div>
+          <br />
+          <!--
+            <div>choosen_package_dict:{{choosen_package_dict}}</div>
+          <br>
+          <div>map_package_dict:{{map_package_list}}</div>
+          <br>
+          <div>Morning time:{{Mornings}}</div>
+          -->
+
+          <!-- MAP PART-->
+          <div id="map1" class="map-container"></div>
+
+          {{ lat_long_list|json_script:"lat_long_list_json" }}
+          <!--
+              <script id="Afternoon_json" type="application/json">
+            {{ Afternoon|safe }}
+          </script>
+            -->
+
+          <script>
+            var map = L.map("map1").setView([11.2626, 75.7673], 11);
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map);
+
+            let lat_long_list = JSON.parse(
+              document.getElementById("lat_long_list_json").textContent
+            );
+            console.log(lat_long_list);
+            let a = 1;
+            lat_long_list.forEach((lat_long_marker) => {
+              L.marker([lat_long_marker.latitude, lat_long_marker.longitude])
+                .addTo(map)
+                .bindPopup(lat_long_marker.spotname);
+              console.log("cord" + a);
+              cordinate = "cord" + a;
+              cordinate = [lat_long_marker.latitude, lat_long_marker.longitude];
+              a = a + 1;
+              console.log(cordinate);
+            });
+
+            cordinate0 = [
+              lat_long_list[0].latitude,
+              lat_long_marker[0].longitude,
+            ];
+            cordinate1 = [
+              lat_long_list[1].latitude,
+              lat_long_marker[1].longitude,
+            ];
+            cordinate2 = [
+              lat_long_list[2].latitude,
+              lat_long_marker[2].longitude,
+            ];
+            var polyline1 = L.polyline([cordinate0, cordinate1]).addTo(map);
+            map.fitBounds(polyline1.getBounds());
+          </script>
+
+          <!-- MAP PART-->
+          <br />
+
+          <br />
+
+          <!--
+            <div>
+            <iframe src="https://my.atlist.com/map/c58a694d-2ba3-4fc2-80b5-d85dcbb10cbb?share=true" allow="geolocation 'self' https://my.atlist.com" width="100%" height="400px" loading="lazy" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+          </div>
+          -->
+        </main>
+
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  <a
+                    class="text-muted"
+                    href="https://adminkit.io/"
+                    target="_blank"
+                    ><strong>Trip planner</strong></a
+                  >
+
+                  &copy;
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

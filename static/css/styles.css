@@ -1,0 +1,54 @@
+.dashboard {
+  margin: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #000000;
+  padding-top: 10px;
+}
+
+select {
+  width: 240px;
+  height: auto;
+  padding: 10px;
+  border-radius: 30px;
+  border-width: 2px;
+  border-color: black;
+  background-color: #e9e9e9;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 240px;
+  border-radius: 30px;
+  border-width: 2px;
+  border-color: black;
+  background-color: #e9e9e9;
+}
+
+.submit {
+  width: 240px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 30px;
+  margin-top: 20px;
+}
+
+.submit:hover {
+  background-color: #555;
+}
+form {
+  margin-top: 70px;
+}
+
+h2 {
+  font-family: "Alegreya";
+}

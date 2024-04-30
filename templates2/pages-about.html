@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+{% load static %}
+{% static "img" as baseUrl%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+
+    <link
+      rel="canonical"
+      href="https://demo-basic.adminkit.io/pages-blank.html"
+    />
+
+    <title>About</title>
+
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="/packages">
+            <span class="align-middle">TRIP PLANNER</span>
+          </a>
+
+          <ul class="sidebar-nav">
+            <!-- <li class="sidebar-header">Pages</li> -->
+
+            <!-- <li class="sidebar-item">
+              <a class="sidebar-link" href="index.html">
+                <i class="align-middle" data-feather="sliders"></i>
+                <span class="align-middle">Dashboard</span>
+              </a>
+            </li> -->
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/packages">
+                <i class="align-middle" data-feather="home"></i>
+                <span class="align-middle">Home</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="accountview">
+                <i class="align-middle" data-feather="user"></i>
+                <span class="align-middle">Profile</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="aboutview">
+                <i class="align-middle" data-feather="info"></i>
+                <span class="align-middle">About</span>
+              </a>
+            </li>
+            <!--
+              <li class="sidebar-item">
+              <a class="sidebar-link" href="/usercontribution/addreview">
+                <i class="align-middle" data-feather="edit-2"></i>
+                <span class="align-middle">Review</span>
+              </a>
+            </li>
+
+            -->
+            
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/usercontribution/addspot">
+                <i class="align-middle" data-feather="upload"></i>
+                <span class="align-middle">Add Spot</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="logoutview">
+                <i class="align-middle" data-feather="log-out"></i>
+                <span class="align-middle">Log out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                {% if user_profile.user_image %}
+                <img
+                  src="{{user_profile.user_image.url}}"
+                  class="avatar img-fluid rounded me-1"
+                  alt="Not available"
+                />
+                {% else %}
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-user-circle-3609976-3014616.png"
+                  class="avatar img-fluid rounded me-1"
+                  alt="Not available"
+                />
+                {% endif %}
+                  <span class="text-dark">{{user_profile.username}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="accountview"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="logoutview">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content">
+          <div class="card">
+            <div class="card-body">
+              The Trip Planner website is a CS project aimed at providing users
+              with a convenient platform to plan their trips. The website offers
+              a user-friendly interface where users can input their available
+              time and budget. Additionally users have option to specify their
+              preferred destination. Based on these inputs, the website
+              generates a list of tour packages that match the user's criteria.
+              Users can further refine their search by selecting preferred
+              landscapes such as beaches, hills, rivers, waterfalls, etc. The website also provides additional features such as nearby cafe spots near the location, information about the location, itinerary suggestions, and information on restaurants and accommodations. 
+              Furthermore, users can contribute
+              to the website by adding new tourist spots to the user-driven
+              database. Along with this user can review their travel experience.
+              The Trip Planner website simplifies the trip planning process,
+              offering users a centralized platform to access all the necessary
+              information for their travel plans.
+            </div>
+          </div>
+        </main>
+
+        <!--
+          <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  <a
+                    class="text-muted"
+                    href="https://adminkit.io/"
+                    target="_blank"
+                    ><strong>Trip planner</strong></a
+                  >
+
+                  &copy;
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        -->
+      </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<main class="content">
+  {% for day_key,day_key_items in choosen_package_dict.items %}
+  <div class="card">
+    <div class="card-header">
+      <h1 style="text-align: center">{{day_key}}</h1>
+      
+    </div>
+    <div class="card-body">
+      <!-- <h2 class="card-title mb-0" style="text-align: center">{{day_key}}</h2> -->
+      <div class="card-body">
+        <div class="row">
+          {% for time_key,time_key_items in day_key_items.items %}
+            <div class="col-12 col-md-4 col-sm-6">
+              <a href="{% url 'spotdetailsview' time_key_items.5 %}">
+                <!--a href="spotdetailsview" time_key_items.5"-->
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="{{time_key_items.10.url}}"
+                    alt="Unsplash"
+                  />
+                  <div class="card-header">
+                    <h5 class="card-title mb-0" style="text-align: center">
+                      {{time_key_items.5}}
+                    </h5>
+                  </div>
+                </div>
+              </a>
+              
+            </div>
+          {% endfor %}
+        </div>
+        <!-- <select class="form-select mb-3">
+          <option selected>Morning:Spot 1</option>
+          <option disabled>Spot Name:</option>
+          <option disabled>Landscape:</option>
+          <option disabled>Cafe spot:</option>
+          <option disabled>Description:</option>
+        </select> -->
+        {% for time_key,time_key_items in day_key_items.items %}
+          <div class="card-header">
+            <h3 class="card-title mb-0" style="text-align: center">
+              {{time_key}}: {{time_key_items.5}}
+            </h3>
+            <div class="card-body">
+              <p>
+                <span style="color: blueviolet"> Location:</span>
+                {{time_key_items.6}}
+              </p>
+              <p>
+                <span style="color: blueviolet">Landscape:</span>
+                {{time_key_items.7}}
+              </p>
+              <p>
+                {% if time_key_items.8 %}
+                <span style="color: blueviolet">Cafe spot:</span>
+                {{time_key_items.8}}
+                {% else %}
+                <span style="color: blueviolet">Cafe spot:</span>
+                Not available
+                {% endif %}
+              </p>
+              <p>
+                <span style="color: blueviolet">Description:</span>
+                {{time_key_items.9}}
+              </p>
+            </div>
+          </div>
+          
+        {% endfor %}
+      </div>
+      <a href="{% url 'mapview' day_key %}" >
+        <button class="btn btn-primary">Maps</button></a>
+    </div>
+    
+  </div>
+  {% endfor %}
+  
+  <!--
+    
+  -->
+  
+</main>
+
+{% endblock %}
